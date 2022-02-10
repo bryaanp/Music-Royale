@@ -38,7 +38,9 @@ export default function LoginScreen({navigation}) {
                             return;
                         }
                         const user = firestoreDocument.data()
-                        navigation.navigate('HomeScreen', {user})
+                        navigation.navigate('Main Menu')
+                        // uncomment this to go back to old menu from the tutorial
+                        // navigation.navigate('HomeScreen', {user}) 
                     })
                     .catch(error => {
                         alert(error)
