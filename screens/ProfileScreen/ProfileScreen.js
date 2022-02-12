@@ -31,7 +31,7 @@ export default function ProfileScreen(props) {
     const entityRef = firebase.firestore().collection('users')
     const db = firebase.firestore()
     const userID = props.extraData.id
-    let fullName = props.extraData.fullName
+    const fullName = props.extraData.fullName
     const email =  props.extraData.email
     const phone =  props.extraData.phone
     const country =  props.extraData.country
@@ -97,7 +97,7 @@ export default function ProfileScreen(props) {
                 marginBottom: 1,
               }]}>{fullName}</Title>
               <Caption style={styles.caption}>{email}</Caption>
-              <Caption style={styles.caption}>714-345-1699</Caption>
+              <Caption style={styles.caption}>{phone}</Caption>
             </View>
           </View>
 
@@ -111,12 +111,12 @@ export default function ProfileScreen(props) {
           }]}>
             {/* Todo: need counter towards the wins */}
             <Title>140</Title>  
-            <Caption>Nummber of Wins</Caption>
+            <Caption>Number of Wins</Caption>
           </View>
           <View style={styles.infoBox}>
             {/* Todo: need counter towards favorite songs */}
             <Title>12</Title>
-            <Caption>Nummber of Favorite Songs</Caption>
+            <Caption>Number of Favorite Songs</Caption>
           </View>
       </View>
 
