@@ -44,9 +44,14 @@ export default function App() {
         </Stack.Screen>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Registration" component={SignupScreen} />
-        <Stack.Screen name='Main Menu' component={MainScreen} />
+        {/* <Stack.Screen name='Main Menu' component={MainScreen}  />  */}
         <Stack.Screen name='Lobby' component={LobbyScreen} />
-        <Stack.Screen name='Profile' component={ProfileScreen} />
+        <Stack.Screen name='Profile'>
+        {props => <ProfileScreen {...props} extraData={user}/>}
+        </Stack.Screen>
+        <Stack.Screen name='Main Menu' >
+          {props => <MainScreen {...props} extraData={user}/>}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

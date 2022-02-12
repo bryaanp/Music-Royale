@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import { firebase } from '../../firebase'
+import { useNavigation } from '@react-navigation/core';
 
-export default function MainScreen({navigation}) {
+export default function MainScreen(props) {
+
+    const userID = props.extraData.id
+
+    const navigation = useNavigation()
 
     const onLobbyPress = () => {
         navigation.navigate('Lobby')
@@ -12,6 +17,7 @@ export default function MainScreen({navigation}) {
     const onProfilePress = () => {
         navigation.navigate('Profile')
     }
+
 
     return(
 
@@ -31,7 +37,7 @@ export default function MainScreen({navigation}) {
                     <TouchableOpacity  style={styles.button} onPress={() => onLobbyPress()}>
                         <Image style={styles.button}
                             source={require('../../assets/Lobby/buttonBackground.png')}/>
-                        <Text style={styles.buttontext}>Lobby</Text>
+                        <Text style={styles.buttontext}>Lobby </Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity  style={styles.button}>
