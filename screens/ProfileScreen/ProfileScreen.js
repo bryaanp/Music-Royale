@@ -3,10 +3,13 @@ import {Image, Text, TextInput, TouchableOpacity, View, FlatList, SafeAreaView }
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import { firebase } from '../../firebase'
+
+// two new packets that need to be install in terminal 
+// yarn add 'react-native-vector-icons'
+// yarn add 'react-native-paper'
+
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-
-
 import {
     Avatar,
     Title,
@@ -23,8 +26,6 @@ export default function ProfileScreen(props) {
     const [emailName, setEmial] = useState('')
     const [phoneName, setPhone] = useState('')
     const [countryName, setCountry] = useState('')
-    const [displayname, setDisplayname] = useState('')
-
 
     // extract the firebase database 
     const entityRef = firebase.firestore().collection('users')
@@ -66,7 +67,7 @@ export default function ProfileScreen(props) {
             console.log("Update sucessful");
         }
     
-    // todo: Needs a little more work so it'll be able to change the 
+    // todo: Needs a little more work so it'll be able to change the display name
     const refreshPage =  () => {
         db.collection('users').where("id", "==", userID)
         .get()
