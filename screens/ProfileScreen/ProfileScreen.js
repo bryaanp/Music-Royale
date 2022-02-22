@@ -38,6 +38,7 @@ export default function ProfileScreen(props) {
 
 
     // updates the firebase database 
+    const saveChangesButtonPress = () => {
         if (FullName.length != 0) {
             db.collection('users').doc(userID).update({
                 fullName: FullName,
