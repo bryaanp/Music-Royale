@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen } from './screens'
 import { firebase } from './firebase'
 import {decode, encode} from 'base-64'
+import { Button } from 'react-native-paper';
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
@@ -38,19 +39,41 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={user ? 'HomeScreen' : 'Login'}>
+      <Stack.Navigator initialRouteName={user ? 'Main Menu' : 'Login'}>
+        { user ?  (
+            <>
+             <Stack.Screen name="Main Menu" options={{
+               headerRight: () => (
+                 <Button
+                  
+                   onPress ={() => {
+                     firebase.auth()
+                     .signOut()
+                     .then(setUser(null))
+                   }}
+                   title='Logout'
+                   color='blue'
+                   >
+                     Logout
+                 </Button>
+               ),
+             }}>
+              {props => <MainScreen {...props} extraData={user}/>}
+             </Stack.Screen>
+             </>
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Registration" component={SignupScreen} />
+          </>
+        )}
         <Stack.Screen name="HomeScreen">
           {props => <HomeScreen {...props} extraData={user}/>}
         </Stack.Screen>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Registration" component={SignupScreen} />
-        {/* <Stack.Screen name='Main Menu' component={MainScreen}  />  */}
+
         <Stack.Screen name='Lobby' component={LobbyScreen} />
         <Stack.Screen name='Profile'>
         {props => <ProfileScreen {...props} extraData={user}/>}
-        </Stack.Screen>
-        <Stack.Screen name='Main Menu' >
-          {props => <MainScreen {...props} extraData={user}/>}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

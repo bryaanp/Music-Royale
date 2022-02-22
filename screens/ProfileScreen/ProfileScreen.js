@@ -37,9 +37,7 @@ export default function ProfileScreen(props) {
     const country =  props.extraData.country
 
 
-
-    const onAddButtonPress = () => {
-        // firebase.firestore().collection('users').document(userID).update("fullname", 'test')
+    // updates the firebase database 
         if (FullName.length != 0) {
             db.collection('users').doc(userID).update({
                 fullName: FullName,
@@ -63,9 +61,14 @@ export default function ProfileScreen(props) {
                 country: countryName,
             })        
         }
-
             console.log("Update sucessful");
         }
+
+    const signOutButton = () => {
+      // todo: needs to establish a connection to the database in order for it to sign out here.
+      navigation.navigate('Login')
+      // firebase.auth().signOut().then(setUser(Null))
+    }
     
     // todo: Needs a little more work so it'll be able to change the display name
     const refreshPage =  () => {
@@ -95,7 +98,7 @@ export default function ProfileScreen(props) {
               <Title style={[styles.title, {
                 marginTop:15,
                 marginBottom: 1,
-              }]}>{fullName}</Title>
+              }]}>{props.extraData.fullName}</Title>
               <Caption style={styles.caption}>{email}</Caption>
               <Caption style={styles.caption}>{phone}</Caption>
             </View>
@@ -171,12 +174,12 @@ export default function ProfileScreen(props) {
 
         </View>
       </View>
-          
+
       <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => onAddButtonPress()}>
-                    <Text style={styles.buttonTitle}>Save Changes</Text>
-        </TouchableOpacity>
+            style={styles.button}
+            onPress={() => saveChangesButtonPress()}>
+            <Text style={styles.buttonTitle}>Save Changes</Text>
+       </TouchableOpacity>
       </SafeAreaView>
 
     )

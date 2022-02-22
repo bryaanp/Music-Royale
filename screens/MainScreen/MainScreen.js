@@ -56,7 +56,6 @@ export default function MainScreen(props) {
                         source={require('../../assets/Lobby/footnote.png')}>
                     </Image>
                 </View>
-    
             </KeyboardAwareScrollView>
         </View>
     )
