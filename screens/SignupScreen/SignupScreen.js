@@ -7,6 +7,7 @@ import { firebase } from '../../firebase'
 export default function SignupScreen({navigation}) {
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -19,6 +20,7 @@ export default function SignupScreen({navigation}) {
             alert("Passwords don't match.")
             return
         }
+        
         firebase
             .auth()
             .createUserWithEmailAndPassword(email, password)
@@ -27,6 +29,7 @@ export default function SignupScreen({navigation}) {
                 const data = {
                     id: uid,
                     email,
+                    username,
                     fullName,
                 };
                 const usersRef = firebase.firestore().collection('users')
@@ -72,6 +75,15 @@ export default function SignupScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Username'
+                    placeholderTextColor="#aaaaaa"
+                    onChangeText={(text) => setUsername(text)}
+                    value={username}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />                
                 <TextInput
                     style={styles.input}
                     placeholderTextColor="#aaaaaa"

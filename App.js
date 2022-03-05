@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen } from './screens'
+import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen, SearchHome } from './screens'
 import { firebase } from './firebase'
 import {decode, encode} from 'base-64'
 if (!global.btoa) {  global.btoa = encode }
@@ -47,6 +47,7 @@ export default function App() {
         <Stack.Screen name='Main Menu' component={MainScreen} />
         <Stack.Screen name='Lobby' component={LobbyScreen} />
         <Stack.Screen name='Profile' component={ProfileScreen} />
+        <Stack.Screen name='Search' component={SearchHome} />
       </Stack.Navigator>
     </NavigationContainer>
   );
