@@ -35,7 +35,7 @@ const SearchScreen = () => {
 
   return (
     <SafeAreaView style={styles.root}>
-      {!clicked && <Text style={styles.title}>Programming Languages</Text>}
+      {!clicked && <Text style={styles.title}>User Search</Text>}
       <SearchBar
         searchPhrase={searchPhrase}
         setSearchPhrase={setSearchPhrase}

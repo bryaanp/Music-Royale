@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, Text, View } from 'react-native';
 import SearchScreen from "./SearchScreen";
 
 export default function SearchHome({navigation}) {
@@ -15,3 +10,7 @@ export default function SearchHome({navigation}) {
       </View>
     )
 }
+
+const styles = StyleSheet.create({
+  
+});
