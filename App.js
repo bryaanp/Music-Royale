@@ -2,9 +2,11 @@ import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, SignupScreen } from './screens'
+import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen } from './screens'
 import { firebase } from './firebase'
 import {decode, encode} from 'base-64'
+import ForgotPassword from './screens/ForgotPasswordScreen/ForgotPasswordScreen';
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen/ForgotPasswordScreen';
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
@@ -44,6 +46,15 @@ export default function App() {
         </Stack.Screen>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Registration" component={SignupScreen} />
+        {/* <Stack.Screen name='Main Menu' component={MainScreen}  />  */}
+        <Stack.Screen name='Lobby' component={LobbyScreen} />
+        <Stack.Screen name='ForgotPassword' component={ForgotPasswordScreen} />
+        <Stack.Screen name='Profile'>
+        {props => <ProfileScreen {...props} extraData={user}/>}
+        </Stack.Screen>
+        <Stack.Screen name='Main Menu' >
+          {props => <MainScreen {...props} extraData={user}/>}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
