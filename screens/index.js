@@ -9,3 +9,5 @@ export { default as MainScreen } from './MainScreen/MainScreen'
 export { default as LobbyScreen } from './LobbyScreen/LobbyScreen'
 
 export{default as ProfileScreen} from './ProfileScreen/ProfileScreen'
+
+export{default as FriendScreen} from './FriendScreen/FriendScreen'

@@ -1,11 +1,15 @@
 import 'react-native-gesture-handler';
+// npm install @react-navigation/bottom-tabs
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen } from './screens'
+import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen, FriendScreen } from './screens'
 import { firebase } from './firebase'
 import {decode, encode} from 'base-64'
 import { Button } from 'react-native-paper';
+// import {useAuthState} from 'react-firebase-hooks/auth';
+// import {useCollectionData} from 'react-firebase-hooks/firestore';
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
@@ -70,13 +74,40 @@ export default function App() {
         <Stack.Screen name="HomeScreen">
           {props => <HomeScreen {...props} extraData={user}/>}
         </Stack.Screen>
+        <Stack.Screen name='Lobby'>
+          {props => <LobbyScreen {...props} extraData={user}/>}
+        </Stack.Screen>
 
-        <Stack.Screen name='Lobby' component={LobbyScreen} />
         <Stack.Screen name='Profile'>
         {props => <ProfileScreen {...props} extraData={user}/>}
+        </Stack.Screen>
+
+        <Stack.Screen name='FriendList' >
+        {props => <FriendScreen {...props} extraData={user} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
   
 }
+
+// function Chatroom(){
+//   // generate a reference of the firebase collection
+//   const messagesRef = firestore.collection('messages');
+//   const query = messagesRef.orderBy('createdAt').limit(25);
+
+//   // add a listener to data
+//   const [messages] = useCollectionData(query, {idField: 'id'});
+
+//   return (
+//     <>
+//       <div>
+//         {messages && messages.map(msg => <ChatMessage key={msg.id} messages={msg} />)}
+//       </div>
+//     </>
+//   )
+// }
+// function ChatMessage(props){
+//   const {text, uid} = props.messages;
+//   return <p>{text}</p>
+// }

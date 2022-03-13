@@ -17,6 +17,9 @@ export default function MainScreen(props) {
     const onProfilePress = () => {
         navigation.navigate('Profile')
     }
+    const onSearchPress = () => {
+        navigation.navigate('FriendList')
+    }
 
 
     return(
@@ -40,7 +43,7 @@ export default function MainScreen(props) {
                         <Text style={styles.buttontext}>Lobby </Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity  style={styles.button}>
+                    <TouchableOpacity  style={styles.button} onPress = {() => onSearchPress()}>
                         <Image style={styles.button}
                             source={require('../../assets/Lobby/buttonBackground.png')}/>
                         <Text style={styles.buttontext}>Search</Text>
@@ -52,12 +55,17 @@ export default function MainScreen(props) {
                         <Text style={styles.buttontext}>Profile</Text>
                     </TouchableOpacity>
 
+                    {/* footnote */}
                     <Image style={styles.footnote}
                         source={require('../../assets/Lobby/footnote.png')}>
                     </Image>
+                    <View style={styles.footnote}> 
+
+                    </View>
                 </View>
             </KeyboardAwareScrollView>
         </View>
     )
     
 }
+
