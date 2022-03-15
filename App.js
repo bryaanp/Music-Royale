@@ -8,8 +8,6 @@ import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, Profile
 import { firebase } from './firebase'
 import {decode, encode} from 'base-64'
 import { Button } from 'react-native-paper';
-// import {useAuthState} from 'react-firebase-hooks/auth';
-// import {useCollectionData} from 'react-firebase-hooks/firestore';
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
@@ -90,24 +88,3 @@ export default function App() {
   );
   
 }
-
-// function Chatroom(){
-//   // generate a reference of the firebase collection
-//   const messagesRef = firestore.collection('messages');
-//   const query = messagesRef.orderBy('createdAt').limit(25);
-
-//   // add a listener to data
-//   const [messages] = useCollectionData(query, {idField: 'id'});
-
-//   return (
-//     <>
-//       <div>
-//         {messages && messages.map(msg => <ChatMessage key={msg.id} messages={msg} />)}
-//       </div>
-//     </>
-//   )
-// }
-// function ChatMessage(props){
-//   const {text, uid} = props.messages;
-//   return <p>{text}</p>
-// }
