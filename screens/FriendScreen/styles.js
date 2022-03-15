@@ -31,9 +31,10 @@ export default StyleSheet.create({
         height: 47,
         borderRadius: 5,
         backgroundColor: '#788eec',
-        width: 80,
+        width: 300,
         alignItems: "center",
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom: 10,
     },
     buttonText: {
         color: 'white',
@@ -52,5 +53,26 @@ export default StyleSheet.create({
     entityText: {
         fontSize: 20,
         color: '#333333'
-    }
+    },
+    title: {
+        marginTop: 10,
+        fontSize: 24,
+        fontWeight: 'bold',
+      },
+      userInfoSection: {
+        paddingHorizontal: 30,
+        marginBottom: 25,
+      },
+      infoBoxWrapper: {
+        paddingTop: 5,
+        borderBottomColor: '#dddddd',
+        borderBottomWidth: .7,
+        borderTopColor: '#dddddd',
+        borderTopWidth: .7,
+        flexDirection: 'row',
+        height: 30,
+        width: 300,
+        justifyContent: 'center',
+        backgroundColor: '#EEEEEE',
+      },
 })
