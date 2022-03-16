@@ -33,6 +33,22 @@ export default function FriendScreen(props) {
     
     const removeOnPress = () => {
 
+
+        db.collection("users").where("username", "==", text)
+        .get()
+        .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                // update the friend list field
+                if(doc.exists) {
+                    console.log("exists");
+                    db.collection('friends').doc(doc.id).update({
+                        friendlist: firebase.firestore.FieldValue.arrayRemove(props.extraData.username),
+                    }, { merge: true });
+                }   
+            });
+        })                    
+
+
         var flag = false; // flag condition
         db.collection('friends').where('friendlist', 'array-contains', text).get()
         .then(function(querySnapshot) {
@@ -43,7 +59,7 @@ export default function FriendScreen(props) {
                     console.log("exists in list removing it");
                     db.collection('friends').doc(uid).update({
                         friendlist: firebase.firestore.FieldValue.arrayRemove(text),
-                      })
+                      }, { merge: true });
                     flag = true;
                     return; 
                 }   
@@ -77,6 +93,18 @@ export default function FriendScreen(props) {
                         friendlist: firebase.firestore.FieldValue.arrayUnion(text),
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     }, { merge: true });
+
+                    
+
+                    // adding friend into the other list
+                    db.collection('friends').doc(doc.id).set({
+                        friendUserName: text,
+                        friendlist: firebase.firestore.FieldValue.arrayUnion(props.extraData.username),
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    }, { merge: true });
+                    // db.collection('friends').doc(doc.id).update({
+                    //     friendlist: firebase.firestore.FieldValue.arrayUnion(prop.extraData.username),
+                    // })
                     setText('')
                     Keyboard.dismiss()
                     return; 
@@ -95,7 +123,7 @@ export default function FriendScreen(props) {
         console.log(Object.keys(friend))
     }
 
-    // display a list of users 
+    // display a list of users into elements in array 
     const displayFriend = (listfriend, id) => {
         var num = listfriend.length;
         var myloop = [];
