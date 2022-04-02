@@ -18,9 +18,24 @@ const firebaseConfig = {
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
+// const db = getFireStore(app);
 
+// initializeApp({
+//   credential: applicationDefault(),
+//   databaseURL: 'https://music-royale-a3aaa.firebaseio.com'
+// });
+
+// const firebaseAdmin = require('firebase-admin');
+
+// exports.initializeApp = () => firebaseAdmin.initializeApp();
+// exports.getFirestore = () => firebaseAdmin.firestore();
 if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
+  firebase.firestore().settings({ experimentalForceLongPolling: true });
 }
+const db = firebase.firestore();
+const auths = firebase.auth();
 
-export { firebase };
+
+
+export { firebase, db, auths };

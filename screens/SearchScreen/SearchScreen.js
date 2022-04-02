@@ -1,74 +1,35 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  ActivityIndicator,
-} from "react-native";
-import SearchData from "./SearchData"
-import SearchBar from "./SearchBar"
+import React, { useEffect, useState } from 'react'
+import { View, Text, TextInput, FlatList } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import SearchUserItem from '../../components/search/userItem'
+import { queryUsers } from './user'
+import styles from './styles'
 
-// export default function SearchScreen({navigation}) {
-//     return (
-//     <View style={styles.root}>
-//         <SearchScreen />
-//       </View>
-//     );
-// }
- 
 const SearchScreen = () => {
-  const [searchPhrase, setSearchPhrase] = useState("");
-  const [clicked, setClicked] = useState(false);
-  const [fakeData, setFakeData] = useState();
+    const [textInput, setTextInput] = useState('')
+    const [searchUsers, setSearchUsers] = useState([])
 
-  // connect to firebase
-  
-  // get data from the fake api endpoint
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const apiResponse = await fetch(
-  //       "https://my-json-server.typicode.com/kevintomas1995/logRocket_searchBar/languages"
-  //     );
-  //     const data = await apiResponse.json();
-  //     setFakeData(data);
-  //   };
-  //   getData();
-  // }, []);
+    useEffect(() => {
+        console.log(textInput)
+        queryUsers(textInput)
+            .then(setSearchUsers)
+    }, [textInput])
 
-  return (
-    <SafeAreaView style={styles.root}>
-      {!clicked && <Text style={styles.title}>User Search</Text>}
-      <SearchBar
-        searchPhrase={searchPhrase}
-        setSearchPhrase={setSearchPhrase}
-        clicked={clicked}
-        setClicked={setClicked}
-      />
-      { (
-          <SearchData
-            searchPhrase={searchPhrase}
-            data={fakeData}
-            setClicked={setClicked}
-          />
+    return (
+        <SafeAreaView style={styles.container}>
+            <TextInput
+                onChangeText={setTextInput}
+                style={styles.textInput}
+                placeholder={'Search User'}
+            />
+            <FlatList
+                data={searchUsers}
+                renderItem={({ item }) => <SearchUserItem item={item} />}
+                keyExtractor={(item) => item.id}
 
-      )}
-    </SafeAreaView>
-  );
-};
+            />
+        </SafeAreaView>
+    )
+}
 
-
-const styles = StyleSheet.create({
-  root: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    width: "100%",
-    marginTop: 20,
-    fontSize: 25,
-    fontWeight: "bold",
-    marginLeft: "10%",
-  },
-});
-
-export default SearchScreen;
+export default SearchScreen

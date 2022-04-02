@@ -25,13 +25,14 @@ export default function ProfileScreen(props) {
     const [FullName, setFullname] = useState('')
     const [emailName, setEmial] = useState('')
     const [phoneName, setPhone] = useState('')
-    const [countryName, setCountry] = useState('')
 
+    
     // extract the firebase database 
     const entityRef = firebase.firestore().collection('users')
     const db = firebase.firestore()
     const userID = props.extraData.id
     const fullName = props.extraData.fullName
+    const username = props.extraData.username
     const email =  props.extraData.email
     const phone =  props.extraData.phone
     const country =  props.extraData.country
@@ -39,6 +40,7 @@ export default function ProfileScreen(props) {
 
     // updates the firebase database 
     const saveChangesButtonPress = () => {
+      username
         if (FullName.length != 0) {
             db.collection('users').doc(userID).update({
                 fullName: FullName,
@@ -62,7 +64,9 @@ export default function ProfileScreen(props) {
                 country: countryName,
             })        
         }
-            console.log("Update sucessful");
+        const usersRef = firebase.firestore().collection('users')
+        
+
         }
 
     const signOutButton = () => {
@@ -72,15 +76,15 @@ export default function ProfileScreen(props) {
     }
     
     // todo: Needs a little more work so it'll be able to change the display name
-    const refreshPage =  () => {
-        db.collection('users').where("id", "==", userID)
-        .get()
-        .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-                var full = doc.get("fullname");
-            })
-        })
-    }
+    // const refreshPage =  () => {
+    //     db.collection('users').where("id", "==", userID)
+    //     .get()
+    //     .then(function(querySnapshot) {
+    //         querySnapshot.forEach(function(doc) {
+    //             var full = doc.get("fullname");
+    //         })
+    //     })
+    // }
 
         
     return( 
@@ -166,7 +170,7 @@ export default function ProfileScreen(props) {
             <View style={styles.action}>
                 <FontAwesome name="globe" color={colors.text} size={20} />
                 <TextInput
-                    placeholder="Country"
+                    placeholder="Username"
                     placeholderTextColor="#666666"
                     autoCorrect={false}
                     onChangeText={(text) => setCountry(text)}

@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import { firebase } from '../../firebase'
+import { useNavigation } from '@react-navigation/core';
 
-export default function MainScreen({navigation}) {
+export default function MainScreen(props) {
+
+    const userID = props.extraData.id
+
+    const navigation = useNavigation()
 
     const onLobbyPress = () => {
         navigation.navigate('Lobby')
@@ -15,6 +20,7 @@ export default function MainScreen({navigation}) {
     const onSearchPress = () => {
         navigation.navigate('Search')
     }
+
 
     return(
 
@@ -34,10 +40,10 @@ export default function MainScreen({navigation}) {
                     <TouchableOpacity  style={styles.button} onPress={() => onLobbyPress()}>
                         <Image style={styles.button}
                             source={require('../../assets/Lobby/buttonBackground.png')}/>
-                        <Text style={styles.buttontext}>Lobby</Text>
+                        <Text style={styles.buttontext}>Lobby </Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity  style={styles.button} onPress={() => onSearchPress()}>
+                    <TouchableOpacity  style={styles.button} onPress = {() => onSearchPress()}>
                         <Image style={styles.button}
                             source={require('../../assets/Lobby/buttonBackground.png')}/>
                         <Text style={styles.buttontext}>Search</Text>
@@ -49,11 +55,14 @@ export default function MainScreen({navigation}) {
                         <Text style={styles.buttontext}>Profile</Text>
                     </TouchableOpacity>
 
+                    {/* footnote */}
                     <Image style={styles.footnote}
                         source={require('../../assets/Lobby/footnote.png')}>
                     </Image>
+                    <View style={styles.footnote}> 
+
+                    </View>
                 </View>
-    
             </KeyboardAwareScrollView>
         </View>
     )
