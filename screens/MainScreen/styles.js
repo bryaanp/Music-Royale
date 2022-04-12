@@ -15,11 +15,13 @@ export default StyleSheet.create({
     logo: {
         flex: 1,
         // width: '100%', height: '100%',
-        height: 185,
-        width: 129,
+        height: 200,
+        width: 200,
+        // height: 185,
+        // width: 129,
         alignSelf: "center",
-        marginTop: 10,
-        marginBottom: 20,
+        marginTop: 0,
+        marginBottom: 0,
     },
     buttontext: {
         position: 'absolute', 
@@ -45,6 +47,23 @@ export default StyleSheet.create({
     footnote: {
         height: 41,
         width: 168,
-        marginTop: 120,
-    }
+        // marginTop: 100,
+
+    },
+    infoBoxWrapper: {
+        paddingTop: 10,
+        borderRightColor: '#dddddd',
+        borderRightWidth: .7,
+        borderLeftColor: '#dddddd',
+        borderLeftWidth: .7,
+        borderTopColor: '#dddddd',
+        borderTopWidth: .7,
+        flexDirection: 'row',
+        height: 100,
+        width: 380,
+        justifyContent: 'center',
+        backgroundColor: '#EEEEEE',
+        marginTop: 30,
+        // position: 'absolute'
+      },
 })

@@ -17,6 +17,7 @@ import {
     TouchableRipple,
     useTheme,
   } from 'react-native-paper';
+
   
 export default function ProfileScreen(props) {
     
@@ -39,6 +40,20 @@ export default function ProfileScreen(props) {
 
 
     // updates the firebase database 
+
+  //   handleImageChange = (response) => {
+  //     // grab the deisre image
+  //     response: {
+  //          data; "data:image/jpeg;base64,/9j/4AAQSkZJRg...", // Base64
+  //          fileSize; 474486,
+  //          height; 531,
+  //          isVertical; false,
+  //          origURL; "assets-library://asset/asset.JPG?id=106E99A1-4F6A-45A2-B320-B0AD4A8E8473&ext=JPG",
+  //          uri; "file:///...",
+  //          width; 800,
+  //     }
+  // };
+
     const saveChangesButtonPress = () => {
       username
         if (FullName.length != 0) {
@@ -93,8 +108,10 @@ export default function ProfileScreen(props) {
 
         <View style={styles.userInfoSection}>
           <View style={{flexDirection: 'row', marginTop: 15}}>
+
             <Avatar.Image 
               source={{
+                // uri: 'https://cdn.imgbin.com/13/8/22/imgbin-computer-icons-user-profile-avatar-avatar-wZPGBbiFn3VsY4n1ue9VUU024.jpg',
                 uri: 'https://api.adorable.io/avatars/80/abott@adorable.png',
               }}
               size={80}

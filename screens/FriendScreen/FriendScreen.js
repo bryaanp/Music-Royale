@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View,  FlatList, SafeAreaView } from 'react-native'
+import { Image, Text, TextInput, TouchableOpacity, View,  ScrollView, SafeAreaView } from 'react-native'
 import styles from './styles';
 import { db, auths, firebase } from '../../firebase'
 import { Title, Caption, Avatar, useTheme } from 'react-native-paper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
+import ToolBar from '../MainScreen/ToolBar';
+
+
 
 // designing a protype on how to 'remove' feature
 
@@ -150,7 +152,7 @@ export default function FriendScreen(props) {
 
     
     return(
-        <SafeAreaView style={styles.container}> 
+        <SafeAreaView style={[styles.container, {marginBottom: -25}]}> 
 
             <View style={styles.userInfoSection}>
                     <View style={{flexDirection: 'row', marginTop: 10}}>
@@ -176,13 +178,14 @@ export default function FriendScreen(props) {
             <View style={styles.container}>
 
                 <Caption style={{fontSize: 15}}> Friend Usernames </Caption>
+                <ScrollView>
+                    {friend.map(({id, friendlist}) => (
+                        <View key={id}>
+                    { displayFriend(friendlist, id)}
+                        </View>
 
-                {friend.map(({id, friendlist}) => (
-                    <View key={id}>
-                   { displayFriend(friendlist, id)}
-                    </View>
-
-                ))}
+                    ))}
+                </ScrollView>
             </View>
 
             {errors ? <View style={{flexDirection: 'row'}}>
@@ -190,7 +193,7 @@ export default function FriendScreen(props) {
                 <Text style={{color: 'red', marginTop: 0}}> {errors} </Text>  
                 </View>: null
                 }
-            <View style={{marginBottom: 10, flexDirection: 'row'}}>
+            <View style={{marginBottom: 10, flexDirection: 'row',}}>
                 <View style={{marginRight:10}}>
                     <FontAwesome name="search" color='gray'  size={15} backgroundColor="blue"/>
                 </View>
@@ -216,6 +219,9 @@ export default function FriendScreen(props) {
                     Remove Friend </Text>
                 </View>
             </TouchableOpacity>
+            
+            <ToolBar colorStatus={[true,false,true]}/>
+
         </SafeAreaView>
         
     )

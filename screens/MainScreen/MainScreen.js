@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Image, Text, TouchableOpacity, View, SafeAreaView } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
-import { firebase } from '../../firebase'
 import { useNavigation } from '@react-navigation/core';
+import ToolBar from './ToolBar';
+
 
 export default function MainScreen(props) {
 
@@ -24,19 +25,21 @@ export default function MainScreen(props) {
 
     return(
 
-        <View style={styles.container}>
+        // <View style={styles.container}>
 
-            <KeyboardAwareScrollView
+            <SafeAreaView
             // Logo
-                style={{ flex: 1, width: '100%' }}
+                style={{ flex: 1, width: '100%', marginBottom: -25}}
                 keyboardShouldPersistTaps="always">
+                <View style={styles.container}>
+
                 <Text style={styles.title}>  Music {'\n'} Royale</Text>
                 <Image
                     style={styles.logo}
                     source={require('../../assets/Lobby/Musiclogo.png')} />
 
                 {/* Buttons  */}
-                <View style={styles.container}>
+                {/* <View style={styles.container}> */}
                     <TouchableOpacity  style={styles.button} onPress={() => onLobbyPress()}>
                         <Image style={styles.button}
                             source={require('../../assets/Lobby/buttonBackground.png')}/>
@@ -55,16 +58,21 @@ export default function MainScreen(props) {
                         <Text style={styles.buttontext}>Profile</Text>
                     </TouchableOpacity>
 
-                    {/* footnote */}
+
+
+                    {/* Called the toolbar screen  */}
+                    <ToolBar colorStatus={[false,true,true]}/>
+
+                    {/* footnote
                     <Image style={styles.footnote}
                         source={require('../../assets/Lobby/footnote.png')}>
                     </Image>
                     <View style={styles.footnote}> 
 
-                    </View>
+                    </View> */}
                 </View>
-            </KeyboardAwareScrollView>
-        </View>
+            </SafeAreaView>
+        // </View>
     )
     
 }
