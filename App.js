@@ -4,10 +4,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen, FriendScreen } from './screens'
+import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen, FriendScreen, NomineeScreen, ForgotPasswordScreen } from './screens'
 import { firebase } from './firebase'
 import {decode, encode} from 'base-64'
 import { Button } from 'react-native-paper';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {View} from 'react-native'
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
@@ -46,18 +48,21 @@ export default function App() {
             <>
              <Stack.Screen name="Main Menu" options={{
                headerRight: () => (
-                 <Button
-                  
-                   onPress ={() => {
-                     firebase.auth()
-                     .signOut()
-                     .then(setUser(null))
-                   }}
-                   title='Logout'
-                   color='blue'
-                   >
-                     Logout
-                 </Button>
+                 <View styles={{flexdirection:'row'}}>
+                    <Button
+                      onPress ={() => {
+                        firebase.auth()
+                        .signOut()
+                        .then(setUser(null))
+                      }}
+                      title='Logout'
+                      color='blue'
+                      >
+                        Logout {""}
+                        <MaterialIcons name="logout" color='blue'  size={14} backgroundColor="blue" style={{}}/>
+                    </Button>
+                    
+                 </View>
                ),
              }}>
               {props => <MainScreen {...props} extraData={user}/>}
@@ -82,6 +87,14 @@ export default function App() {
 
         <Stack.Screen name='FriendList' >
         {props => <FriendScreen {...props} extraData={user} />}
+        </Stack.Screen>
+
+        <Stack.Screen name='Nominee' >
+        {props => <NomineeScreen {...props} extraData={user} />}
+        </Stack.Screen>
+
+        <Stack.Screen name='ForgotPassword' >
+        {props => <ForgotPasswordScreen {...props} extraData={user} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
