@@ -1,9 +1,47 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../firebase'
 
 export default function HomeScreen(props) {
+
+    const questions = [{
+            questionText: 'What is the capital of France?',
+            answerOptions: [
+                { answerText: 'New York', isCorrect: false },
+                { answerText: 'London', isCorrect: false },
+                { answerText: 'Paris', isCorrect: true },
+                { answerText: 'Dublin', isCorrect: false },
+            ],
+        },
+        {
+            questionText: 'Who is CEO of Tesla?',
+            answerOptions: [
+                { answerText: 'Jeff Bezos', isCorrect: false },
+                { answerText: 'Elon Musk', isCorrect: true },
+                { answerText: 'Bill Gates', isCorrect: false },
+                { answerText: 'Tony Stark', isCorrect: false },
+            ],
+        },
+        {
+            questionText: 'The iPhone was created by which company?',
+            answerOptions: [
+                { answerText: 'Apple', isCorrect: true },
+                { answerText: 'Intel', isCorrect: false },
+                { answerText: 'Amazon', isCorrect: false },
+                { answerText: 'Microsoft', isCorrect: false },
+            ],
+        },
+        {
+            questionText: 'How many Harry Potter books are there?',
+            answerOptions: [
+                { answerText: '1', isCorrect: false },
+                { answerText: '4', isCorrect: false },
+                { answerText: '6', isCorrect: false },
+                { answerText: '7', isCorrect: true },
+            ],
+        },
+    ];
 
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])
@@ -51,42 +89,66 @@ export default function HomeScreen(props) {
         }
     }
 
-    const renderEntity = ({item, index}) => {
-        return (
-            <View style={styles.entityContainer}>
-                <Text style={styles.entityText}>
-                    {index}. {item.text}
-                </Text>
-            </View>
+    const renderEntity = ({ item, index }) => {
+        return ( <
+            View style = { styles.entityContainer } >
+            <
+            Text style = { styles.entityText } > { index }. { item.text } <
+            /Text> <
+            /View>
         )
     }
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.formContainer}>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Add new entity'
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setEntityText(text)}
-                    value={entityText}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TouchableOpacity style={styles.button} onPress={onAddButtonPress}>
-                    <Text style={styles.buttonText}>Add</Text>
-                </TouchableOpacity>
-            </View>
-            { entities && (
-                <View style={styles.listContainer}>
-                    <FlatList
-                        data={entities}
-                        renderItem={renderEntity}
-                        keyExtractor={(item) => item.id}
-                        removeClippedSubviews={true}
-                    />
-                </View>
-            )}
-        </View>
+    return ( <
+        View style = { styles.container } >
+
+        <
+        Text > What is the capitol of Switzerland ? < /Text>
+
+        <
+        TouchableOpacity style = {
+            [styles.button, { marginTop: 150 }] }
+        onPress = { onAddButtonPress } >
+        <
+        Text style = { styles.buttonText } > Option 1 < /Text> <
+        /TouchableOpacity> <
+        TouchableOpacity style = {
+            [styles.button, { marginTop: 150 }] }
+        onPress = { onAddButtonPress } >
+        <
+        Text style = { styles.buttonText } > Option 2 < /Text> <
+        /TouchableOpacity> <
+        TouchableOpacity style = {
+            [styles.button, { marginTop: 150 }] }
+        onPress = { onAddButtonPress } >
+        <
+        Text style = { styles.buttonText } > Option 3 < /Text> <
+        /TouchableOpacity> <
+        TouchableOpacity style = {
+            [styles.button, { marginTop: 150 }] }
+        onPress = { onAddButtonPress } >
+        <
+        Text style = { styles.buttonText } > Option 4 < /Text> <
+        /TouchableOpacity>
+
+
+        <
+        View style = { styles.formContainer } >
+        <
+        TextInput style = { styles.input }
+        placeholder = 'Type here or button'
+        placeholderTextColor = "#aaaaaa"
+        onChangeText = {
+            (text) => setEntityText(text) }
+        value = { entityText }
+        underlineColorAndroid = "transparent"
+        autoCapitalize = "none" /
+        >
+
+        <
+        /View>
+
+        <
+        /View>
     )
 }
