@@ -4,23 +4,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import styles from './styles';
 import { firebase } from '../../firebase'
 
-export default function SignupScreen({ navigation }) {
+export default function SignupScreen({navigation}) {
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-<<<<<<< Updated upstream
-=======
-
-    useEffect(() => {
-        firebase.firestore().collection('users').orderBy('id').onSnapshot((snapshot) => {
-            setListUser(snapshot.docs.map(doc => doc.data()))
-        })
-
-    }, [])
-
->>>>>>> Stashed changes
     const onFooterLinkPress = () => {
         navigation.navigate('Login')
     }
@@ -30,10 +19,6 @@ export default function SignupScreen({ navigation }) {
             alert("Passwords don't match.")
             return
         }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
         firebase
             .auth()
             .createUserWithEmailAndPassword(email, password)
@@ -43,15 +28,13 @@ export default function SignupScreen({ navigation }) {
                     id: uid,
                     email,
                     fullName,
-                    username: username,
-
                 };
                 const usersRef = firebase.firestore().collection('users')
                 usersRef
                     .doc(uid)
                     .set(data)
                     .then(() => {
-                        navigation.navigate('HomeScreen', { user: data })
+                        navigation.navigate('HomeScreen', {user: data})
                     })
                     .catch((error) => {
                         alert(error)
@@ -59,10 +42,9 @@ export default function SignupScreen({ navigation }) {
             })
             .catch((error) => {
                 alert(error)
-            });
+        });
     }
 
-<<<<<<< Updated upstream
     return (
         <View style={styles.container}>
             <KeyboardAwareScrollView
@@ -120,81 +102,5 @@ export default function SignupScreen({ navigation }) {
                 </View>
             </KeyboardAwareScrollView>
         </View>
-=======
-    return ( <
-        View style = { styles.container } >
-        <
-        KeyboardAwareScrollView style = {
-            { flex: 1, width: '100%' } }
-        keyboardShouldPersistTaps = "always" >
-        <
-        Image style = { styles.logo }
-        source = { require('../../assets/icon.png') }
-        /> <
-        TextInput style = { styles.input }
-        placeholder = 'Full Name'
-        placeholderTextColor = "#aaaaaa"
-        onChangeText = {
-            (text) => setFullName(text) }
-        value = { fullName }
-        underlineColorAndroid = "transparent"
-        autoCapitalize = "none" /
-        >
-        <
-        TextInput style = { styles.input }
-        placeholder = 'E-mail'
-        placeholderTextColor = "#aaaaaa"
-        onChangeText = {
-            (text) => setEmail(text) }
-        value = { email }
-        underlineColorAndroid = "transparent"
-        autoCapitalize = "none" /
-        >
-        <
-        TextInput style = { styles.input }
-        placeholderTextColor = "#aaaaaa"
-        placeholder = 'Username'
-        onChangeText = {
-            (text) => setUserName(text) }
-        value = { username }
-        underlineColorAndroid = "transparent"
-        autoCapitalize = "none" /
-        >
-        <
-        TextInput style = { styles.input }
-        placeholderTextColor = "#aaaaaa"
-        secureTextEntry placeholder = 'Password'
-        onChangeText = {
-            (text) => setPassword(text) }
-        value = { password }
-        underlineColorAndroid = "transparent"
-        autoCapitalize = "none" /
-        >
-        <
-        TextInput style = { styles.input }
-        placeholderTextColor = "#aaaaaa"
-        secureTextEntry placeholder = 'Confirm Password'
-        onChangeText = {
-            (text) => setConfirmPassword(text) }
-        value = { confirmPassword }
-        underlineColorAndroid = "transparent"
-        autoCapitalize = "none" /
-        >
-        <
-        TouchableOpacity style = { styles.button }
-        onPress = {
-            () => onRegisterPress() } >
-        <
-        Text style = { styles.buttonTitle } > Create account < /Text> <
-        /TouchableOpacity> <
-        View style = { styles.footerView } >
-        <
-        Text style = { styles.footerText } > Already got an account ? < Text onPress = { onFooterLinkPress }
-        style = { styles.footerLink } > Log in < /Text></Text >
-        <
-        /View> <
-        /KeyboardAwareScrollView> <
-        /View>
->>>>>>> Stashed changes
     )
 }
