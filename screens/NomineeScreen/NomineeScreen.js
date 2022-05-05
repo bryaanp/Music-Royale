@@ -4,7 +4,7 @@ import styles from './styles';
 import { useNavigation } from '@react-navigation/core';
 import { db, firebase } from '../../firebase'
 import { ScrollView } from 'react-native-gesture-handler';
-// import PromptSceen from './PrompScreen';
+import PromptSceen from './PromptScreen';
 import ToolBar from '../MainScreen/ToolBar';
 
 // added a picker module to allow cathegory to be pick

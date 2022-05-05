@@ -98,6 +98,11 @@ export default function App() {
         <Stack.Screen name='FriendList' >
         {props => <FriendScreen {...props} extraData={user} />}
         </Stack.Screen>
+
+        <Stack.Screen name='Nominee' >
+        {props => <NomineeScreen {...props} extraData={user} />}
+        </Stack.Screen>
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

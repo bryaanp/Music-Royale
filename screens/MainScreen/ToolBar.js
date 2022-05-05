@@ -46,7 +46,7 @@ export default function ToolBar({colorStatus}) {
                 <Text style={{color:colorStatus[2] ? 'gray': 'blue', fontSize: 12}}>
                     <Feather name='file-plus' size={30} color={colorStatus[2] ? 'gray': 'blue'}/>
                     {'\n'}
-                    nominee
+                    Nominee
                 </Text>
             </TouchableOpacity>
         </View>

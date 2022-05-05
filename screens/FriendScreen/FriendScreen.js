@@ -169,7 +169,7 @@ export default function FriendScreen(props) {
                                 }]}>
                             {props.extraData.fullName}
                         </Title>
-                        <Caption style={styles.caption}>Protype FriendList</Caption>
+                        <Caption style={styles.caption}>Protoype FriendList</Caption>
                         </View>
                     </View>
 
