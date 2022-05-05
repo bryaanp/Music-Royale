@@ -8,7 +8,7 @@ export default function SearchUserItem({ item }) {
     return (
         <TouchableOpacity
             style={styles.container}
-            onPress={() => navigation.navigate('profileOther', { initialUserId: item?.uid })}>
+            onPress={() => navigation.navigate('SearchProfile', { initialUserId : item.username })}>
             <Text style={styles.text}>{item.username}</Text>
             <Image style={styles.image} source={{ uri: item.photoURL }} />
         </TouchableOpacity >

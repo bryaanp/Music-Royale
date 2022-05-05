@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen, FriendScreen, SearchScreen } from './screens'
+import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen, FriendScreen, SearchScreen, SearchProfile, SearchMusic } from './screens'
 import { firebase } from './firebase'
 import {decode, encode} from 'base-64'
 import { Button } from 'react-native-paper';
@@ -80,8 +80,19 @@ export default function App() {
         {props => <ProfileScreen {...props} extraData={user}/>}
         </Stack.Screen>
 
+        {/* <Stack.Screen name='SearchProfile' component = {SearchProfile} initialParams={{ initialUserId : user }}>
+        </Stack.Screen> */}
+
+        <Stack.Screen name='SearchProfile'>
+        {props => <SearchProfile {...props} extraData={user}/>}
+        </Stack.Screen>
+
         <Stack.Screen name='Search'>
         {props => <SearchScreen {...props} extraData={user}/>}
+        </Stack.Screen>
+
+        <Stack.Screen name='SearchMusic'>
+        {props => <SearchMusic {...props} extraData={user}/>}
         </Stack.Screen>
 
         <Stack.Screen name='FriendList' >
