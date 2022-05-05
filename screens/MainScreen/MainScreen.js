@@ -12,7 +12,7 @@ export default function MainScreen(props) {
     const navigation = useNavigation()
 
     const onLobbyPress = () => {
-        navigation.navigate('Lobby')
+        navigation.navigate('SearchMusic')
     }
     const onProfilePress = () => {
         navigation.navigate('Profile')
@@ -40,7 +40,7 @@ export default function MainScreen(props) {
                     <TouchableOpacity  style={styles.button} onPress={() => onLobbyPress()}>
                         <Image style={styles.button}
                             source={require('../../assets/Lobby/buttonBackground.png')}/>
-                        <Text style={styles.buttontext}>Lobby </Text>
+                        <Text style={styles.buttontext}>Search Music </Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity  style={styles.button} onPress = {() => onSearchPress()}>

@@ -25,6 +25,27 @@ export const saveUserField = (field, value) => new Promise((resolve, reject) => 
 })
 
 
+export const queryMusic = (songName) => new Promise((resolve, reject) => {
+    if (songName === '') {
+        resolve([])
+    }
+
+    firebase.firestore()
+        .collection('songs')
+        .where('name', '>=', songName)
+        .where('name', '<=', songName + '\uf8ff')
+        .get()
+        .then((snapshot) => {
+            let songs = snapshot.docs.map(doc => {
+                const data = doc.data();
+                const id = doc.id;
+                return { id, ...data }
+            })
+            resolve(songs)
+        })
+        .catch(() => reject())
+})
+
 export const queryUsers = (username) => new Promise((resolve, reject) => {
     if (username === '') {
         resolve([])
@@ -52,6 +73,9 @@ export const queryUsers = (username) => new Promise((resolve, reject) => {
  * @param {String} id of the user we want to fetch 
  * @returns {Promise<Object>} user object if successful.
  */
+//  export async function getUserById(UID) {
+//     return await firebase.database().ref(`users/${UID}`).once('value');
+//   }
 export const getUserById = (id) => new Promise((resolve, reject) => {
     firebase.firestore()
         .collection('users')

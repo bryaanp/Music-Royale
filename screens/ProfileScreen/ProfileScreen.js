@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import {Image, Text, TextInput, TouchableOpacity, View, FlatList, SafeAreaView } from 'react-native'
+import React, { useEffect, useState, Component } from 'react'
+import {Button, Image, Text, TextInput, TouchableOpacity, View, FlatList, SafeAreaView } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import { firebase } from '../../firebase'
+import authHandler from "../../components/auth/authenticationHandler";
+
 
 // two new packets that need to be install in terminal 
 // yarn add 'react-native-vector-icons'
@@ -144,7 +146,7 @@ export default function ProfileScreen(props) {
             <View style={styles.action}>
                 <FontAwesome name="envelope-o" color={colors.text}  size={20} />
                 <TextInput style={styles.infoBox}
-                    placeholder=" email"
+                    placeholder=" Email"
                     placeholderTextColor="#666666"
                     autoCorrect={false}
                     onChangeText={(text) => setEmial(text)}
@@ -159,7 +161,7 @@ export default function ProfileScreen(props) {
             <View style={styles.action}>
                 <Feather name="phone" color={colors.text} size={20} />
                 <TextInput
-                    placeholder="Phone"
+                    placeholder=" Phone"
                     placeholderTextColor="#666666"
                     keyboardType="number-pad"
                     autoCorrect={false}
@@ -170,7 +172,7 @@ export default function ProfileScreen(props) {
             <View style={styles.action}>
                 <FontAwesome name="globe" color={colors.text} size={20} />
                 <TextInput
-                    placeholder="Username"
+                    placeholder=" Username"
                     placeholderTextColor="#666666"
                     autoCorrect={false}
                     onChangeText={(text) => setCountry(text)}
@@ -185,6 +187,14 @@ export default function ProfileScreen(props) {
             onPress={() => saveChangesButtonPress()}>
             <Text style={styles.buttonTitle}>Save Changes</Text>
        </TouchableOpacity>
+
+
+      <TouchableOpacity 
+              style={styles.button}
+              onPress={() => authHandler.onLogin()}>
+              <Text style={styles.buttonTitle}>Twitter Link</Text>
+        </TouchableOpacity>
+
       </SafeAreaView>
 
     )
