@@ -1,115 +1,143 @@
-import React, { useEffect, useRef, useState } from 'react'
-import {Text, TouchableOpacity, View, SafeAreaView, } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import {Text, TouchableOpacity, View, SafeAreaView, Image} from 'react-native'
 import styles from './styles';
-import { useNavigation } from '@react-navigation/core';
 import { db, firebase } from '../../firebase'
 import { ScrollView } from 'react-native-gesture-handler';
-import PromptSceen from './PrompScreen';
+import PromptSceen from './PromptScreen';
 import ToolBar from '../MainScreen/ToolBar';
+import { AntDesign } from '@expo/vector-icons'; 
+import { useNavigation } from '@react-navigation/core';
 
-// added a picker module to allow cathegory to be pick
-// yarn add @react-native-picker/picker
-import {Picker} from '@react-native-picker/picker';
+
+
 
 export default function NomineeScreen(props) { 
-
+    
     const promptRef =  db.collection('prompts')
-    const [prompts, setPrompt] = useState([])
-    const [selectedCategory, setSelectedCategory] = useState('Official');
+    const [promptOffical, setPromptOffical] = useState([])
+    const [promptRated, setPromptRated] = useState([])
+    const [promptRecent, setPromptRecent] = useState([])
+    const [promptUser, setPromtUser] = useState([])
+
+    var username = props.extraData.username;
+    const navigation = useNavigation()
 
 
 
-    // initial value
     useEffect(() => {
-        db.collection('prompts').where('genre','==',selectedCategory).onSnapshot((snapshot) => {
-            setPrompt(snapshot.docs.map(doc => doc.data()))
+        // Official tab
+        db.collection('prompts').where('genre','==','Official').onSnapshot((snapshot) => {
+            setPromptOffical(snapshot.docs.map(doc => doc.data()))
+        })
+        
+        // Hightest Rated tab
+        db.collection('prompts').orderBy('value','desc').onSnapshot((snapshot) => {
+            setPromptRated(snapshot.docs.map(doc => doc.data()))
+        })
+
+        // User Content tab
+        db.collection('prompts').where('username','==', username).onSnapshot((snapshot) => {
+            setPromtUser(snapshot.docs.map(doc => doc.data()))
+        })
+       
+        // Most Recent'
+        db.collection('prompts').orderBy('createdBy','asc').onSnapshot((snapshot) => {
+            setPromptRecent(snapshot.docs.map(doc => doc.data()))
         })
         }, []
     
         )
 
+        const newPromptOnPress = () => {
 
-    const displayTestingKit = () => {
-
-        promptRef.doc('wpnrarDyNTCh5zg1SULU').update({
-            value: firebase.firestore.FieldValue.increment(-1),
-          }, { merge: true });
-    
-
-        }
-    
-    const displayTestingKit2 = () => {
-
-        promptRef.doc('wpnrarDyNTCh5zg1SULU').update({
-            value: firebase.firestore.FieldValue.increment(1),
+            db.collection('users').doc(props.extraData.id).update({
+                value: firebase.firestore.FieldValue.increment(1),
             }, { merge: true });
+
+            db.collection('users').doc(props.extraData.id).get()
+            .then((documentSnapshot) => {
+                if (documentSnapshot.exists) {
+                    console.log('Document exists on the database');
+                    var index = documentSnapshot.get("value");
+                    console.log(index)
+
+                    db.collection('prompts').add({
+                        name: 'Untitled Prompt ' + index,
+                        username: username,
+                        createdBy: firebase.firestore.FieldValue.serverTimestamp(),
+                        value: 0,
+                        questions: [
+                            { 
+                                Question: 'Question 1',
+                                A: '',
+                                B: '',
+                                C: '',
+                                D: '',
+                                Answer: 'A'
+                            },
+                            { 
+                                Question: 'Question 2',
+                                A: '',
+                                B: '',
+                                C: '',
+                                D: '',
+                                Answer: 'A'
+                            },
+                            { 
+                                Question: 'Question 3',
+                                A: '',
+                                B: '',
+                                C: '',
+                                D: '',
+                                Answer: 'A'
+                            },
+                        ],
+                    }, { merge: true });
+                    console.log(index)
+                    navigation.navigate('Customize Prompt', {name:'Untitled Prompt ' + index})
+
+                  }
+            });
         }
-    
-
-    // mow it working
-    const displayPrompt = (itemValue) => {
-        setSelectedCategory(itemValue)
-        setPrompt([])
-        db.collection('prompts').where('genre','==',itemValue).orderBy('value','desc').onSnapshot((snapshot) => {
-            setPrompt(snapshot.docs.map(doc => doc.data()))
-        })
-
-    }
-
 
     return(
+        /*  Center out the app */
         <SafeAreaView style={[styles.container, { marginBottom: -25 }]}>
 
-            {/*  Center out the app */}
-            <View style={{ alignSelf: 'center',}} >
-
-                {/* Setting up the categoory bar */}
-                <Text> 
-                    Please Select a category {selectedCategory}
-                </Text>
-                <Picker
-                    selectedValue={selectedCategory}
-                    onValueChange={(itemValue, itemIndex) =>
-                        displayPrompt(itemValue, itemIndex)
-                    }>
-                    <Picker.Item label="Offical" value="Official" /> 
-                    <Picker.Item label="Hightest Rated" value="Hightest Rated" />
-                    <Picker.Item label="Most Recent" value="Most Recent" />
-
-                </Picker>
-
                 {/* Display prompts */}
-                <ScrollView>
-                    <PromptSceen prompt={prompts}/>
-                </ScrollView>
+                <View>
+                    <TouchableOpacity style={styles.button} onPress={newPromptOnPress}>
+                        <Image style={[styles.button]} 
+                            source={require('../../assets/Lobby/buttonBackground.png')}>
+                        </Image>
+                        <Text style={styles.buttontext}>
+                            Create Prompt
+                        </Text>
+                        <AntDesign name="checkcircle" style={[styles.buttontext, {left: 80}]} />
+                    </TouchableOpacity>
 
-                {prompts.map(({id,name,value}) => (
-                <View key={name}>
-                    <Text>
-                   {name} {value}
-                   </Text>
+                    <Text style={{alignSelf:'center', marginBottom: 5}}> Categories of Prompts </Text>
+
+                    <ScrollView>
+                    <Text style={{alignSelf:'center', marginBottom: 5, marginTop: 5}}> Official </Text>
+                    <PromptSceen prompt={promptOffical} index={0} id={username}/>
+
+                    <Text style={{alignSelf:'center', marginBottom: 5, marginTop: 5}}> Highest Rated </Text>
+                    <PromptSceen prompt={promptRated} index={1} id={username}/>
+
+                    <Text style={{alignSelf:'center', marginBottom: 5, marginTop: 5}}>  Most Recent </Text>
+                    <PromptSceen prompt={promptRecent} index={2} id={username}/>
+
+                    <Text style={{alignSelf:'center', marginBottom: 5, marginTop: 5}}>  {username} Propmts </Text>
+                    <PromptSceen prompt={promptUser} index={3} id={username}/>
+                    </ScrollView>
+
+                    {/* ToolBar */}
+                    <View style={{marginLeft:10}}>
+                    <ToolBar colorStatus={[true, true, false]} />
+                    </View>
                 </View>
-            )
-            )}
-                {/* <View style={{flexDirection:'row'}}>
-                    <TouchableOpacity onPress={displayTestingKit}>
-                        <Text style={{color:'red'}}>
-                            dislike {"   "} 
-                        </Text>
-                    </TouchableOpacity>
 
-                    <TouchableOpacity onPress={displayTestingKit2}>
-                        <Text style={{color:'blue'}}>
-                            like 
-                            
-                        </Text>
-                    </TouchableOpacity>
-                </View> */}
-
-                {/* <Image style={styles.button} 
-                    source={require('../../assets/Lobby/buttonBackground.png')}/> */}
-            <ToolBar colorStatus={[true, true, false]} />
-            </View>
         </SafeAreaView>
     )
 }
