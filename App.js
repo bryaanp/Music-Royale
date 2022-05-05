@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen, FriendScreen, SearchScreen, SearchProfile, SearchMusic } from './screens'
+import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen, FriendScreen, SearchScreen, SearchProfile, SearchMusic, NomineeScreen } from './screens'
 import { firebase } from './firebase'
 import {decode, encode} from 'base-64'
 import { Button } from 'react-native-paper';

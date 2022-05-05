@@ -16,3 +16,7 @@ export { default as SearchProfile} from './ProfileScreen/SearchProfile'
 
 export { default as SearchMusic} from './SearchScreen/SearchMusic'
 
+export{default as FriendScreen} from './FriendScreen/FriendScreen'
+
+export{default as NomineeScreen} from './NomineeScreen/NomineeScreen'
+

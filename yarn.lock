@@ -1873,6 +1873,11 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/masked-view/-/masked-view-0.1.11.tgz"
   "version" "0.1.11"
 
+"@react-native-picker/picker@^2.4.1":
+  "integrity" "sha512-1XWy3IQgwr7MWd30KdY1iUh2gQZD+JiotN1ifj/ptFUYKon/0UFwngKQaWCO/CP/FdLl20/huSSLwKedYrdMMA=="
+  "resolved" "https://registry.npmjs.org/@react-native-picker/picker/-/picker-2.4.1.tgz"
+  "version" "2.4.1"
+
 "@react-native/assets@1.0.0":
   "integrity" "sha512-KrwSpS1tKI70wuKl68DwJZYEvXktDHdZMG0k2AXD/rJVSlB23/X2CB2cutVR0HwNMJIal9HOUOBB2rVfa6UGtQ=="
   "resolved" "https://registry.npmjs.org/@react-native/assets/-/assets-1.0.0.tgz"
@@ -3292,10 +3297,10 @@
     "find-up" "~5.0.0"
     "fs-extra" "^9.1.0"
 
-"expo-modules-core@~0.4.4", "expo-modules-core@~0.4.8":
-  "integrity" "sha512-PElvF9/mw8TZ0FG3cQkQHB1yZEvtSrQ9nh90pINuTwmIUrxC427rgGoPrALsMaX90h94jTkPHODXHuX+Xsl/rg=="
-  "resolved" "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-0.4.8.tgz"
-  "version" "0.4.8"
+"expo-modules-core@~0.4.10", "expo-modules-core@~0.4.4":
+  "integrity" "sha512-uCZA3QzF0syRaHwYY99iaNhnye4vSQGsJ/y6IAiesXdbeVahWibX4G1KoKNPUyNsKXIM4tqA+4yByUSvJe4AAw=="
+  "resolved" "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-0.4.10.tgz"
+  "version" "0.4.10"
   dependencies:
     "compare-versions" "^3.4.0"
     "invariant" "^2.2.4"
@@ -3306,9 +3311,9 @@
   "version" "1.1.0"
 
 "expo@~43.0.2":
-  "integrity" "sha512-X4lLvoUuUbjj1n3DOjZ+w9TfNbEvNMRWvbOzYNYwS4FMB04Gt2RvQYYP8mXWbBZz0+b/s/Q+u67jj0+LMdxyfg=="
-  "resolved" "https://registry.npmjs.org/expo/-/expo-43.0.3.tgz"
-  "version" "43.0.3"
+  "integrity" "sha512-GShSipvKxxIuG7EL196d5gscPV7t/bOFGTLVefRFk2wyfiNcnRflsVK5B3c0hh9j1n0VGy0n+pHkXWoLzyk9vg=="
+  "resolved" "https://registry.npmjs.org/expo/-/expo-43.0.5.tgz"
+  "version" "43.0.5"
   dependencies:
     "@babel/runtime" "^7.14.0"
     "@expo/metro-config" "~0.1.84"
@@ -3322,7 +3327,7 @@
     "expo-font" "~10.0.3"
     "expo-keep-awake" "~10.0.0"
     "expo-modules-autolinking" "~0.3.4"
-    "expo-modules-core" "~0.4.8"
+    "expo-modules-core" "~0.4.10"
     "fbemitter" "^2.1.1"
     "invariant" "^2.2.2"
     "md5-file" "^3.2.3"
@@ -5990,7 +5995,7 @@
   "resolved" "https://registry.npmjs.org/react-refresh/-/react-refresh-0.4.3.tgz"
   "version" "0.4.3"
 
-"react@*", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0", "react@>=16.0", "react@>=16.3.0", "react@>=17.0.1", "react@17.0.1":
+"react@*", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0", "react@>=16.0", "react@>=16.3.0", "react@>=17.0.1", "react@16 || 17", "react@17.0.1":
   "integrity" "sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.1.tgz"
   "version" "17.0.1"
