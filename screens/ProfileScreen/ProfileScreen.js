@@ -24,19 +24,21 @@ export default function ProfileScreen(props) {
     // constant value that will change form time to time. 
     const {colors} = useTheme();
     const [FullName, setFullname] = useState('')
+    const [FullName2, setFullname2] = useState(props.extraData.fullName)
     const [emailName, setEmial] = useState('')
+    const [emailName2, setEmial2] = useState(props.extraData.email)
+    const [username, setUsername] = useState('')
     const [phoneName, setPhone] = useState('')
+    const [phoneName2, setPhone2] = useState(props.extraData.phone)
+
 
     
     // extract the firebase database 
     const entityRef = firebase.firestore().collection('users')
-    const db = firebase.firestore()
-    const userID = props.extraData.id
-    const fullName = props.extraData.fullName
-    const username = props.extraData.username
-    const email =  props.extraData.email
-    const phone =  props.extraData.phone
-    const country =  props.extraData.country
+    var db = firebase.firestore()
+    var userID = props.extraData.id
+    var user_name = props.extraData.username
+    var phone =  props.extraData.phone
 
 
     // updates the firebase database 
@@ -59,48 +61,33 @@ export default function ProfileScreen(props) {
         if (FullName.length != 0) {
             db.collection('users').doc(userID).update({
                 fullName: FullName,
-            })        
+            })
+            setFullname2(FullName)        
         }
 
         if (emailName.length != 0) {
             db.collection('users').doc(userID).update({
                 email: emailName,
-            })        
+            })
+            setEmial2(emailName)   
         }
 
         if (phoneName.length != 0) {
             db.collection('users').doc(userID).update({
                 phone: phoneName,
-            })        
+            })
+            setPhone2(phoneName)        
         }
 
-        if (countryName.length != 0) {
+        if (username.length != 0) {
             db.collection('users').doc(userID).update({
-                country: countryName,
+              username: user_name,
             })        
         }
         const usersRef = firebase.firestore().collection('users')
         
 
         }
-
-    const signOutButton = () => {
-      // todo: needs to establish a connection to the database in order for it to sign out here.
-      navigation.navigate('Login')
-      // firebase.auth().signOut().then(setUser(Null))
-    }
-    
-    // todo: Needs a little more work so it'll be able to change the display name
-    // const refreshPage =  () => {
-    //     db.collection('users').where("id", "==", userID)
-    //     .get()
-    //     .then(function(querySnapshot) {
-    //         querySnapshot.forEach(function(doc) {
-    //             var full = doc.get("fullname");
-    //         })
-    //     })
-    // }
-
         
     return( 
         
@@ -120,9 +107,9 @@ export default function ProfileScreen(props) {
               <Title style={[styles.title, {
                 marginTop:15,
                 marginBottom: 1,
-              }]}>{props.extraData.fullName}</Title>
-              <Caption style={styles.caption}>{email}</Caption>
-              <Caption style={styles.caption}>{phone}</Caption>
+              }]}>{FullName2}</Title>
+              <Caption style={styles.caption}>{emailName2}</Caption>
+              <Caption style={styles.caption}>{phoneName2}</Caption>
             </View>
           </View>
 
@@ -190,7 +177,7 @@ export default function ProfileScreen(props) {
                     placeholder="Username"
                     placeholderTextColor="#666666"
                     autoCorrect={false}
-                    onChangeText={(text) => setCountry(text)}
+                    onChangeText={(text) => setUsername(text)}
                  />
             </View>
 

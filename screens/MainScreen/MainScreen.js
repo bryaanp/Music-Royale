@@ -19,7 +19,7 @@ export default function MainScreen(props) {
         navigation.navigate('Profile')
     }
     const onSearchPress = () => {
-        navigation.navigate('FriendList')
+        navigation.navigate('Search')
     }
 
 

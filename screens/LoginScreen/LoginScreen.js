@@ -22,6 +22,12 @@ export default function LoginScreen({navigation}) {
     //     return unsubscribe
     //   }, [])
 
+        //Handle Forgot Password
+    const onForgotPasswordPress = () => 
+    {
+        navigation.navigate('ForgotPassword')
+    }
+
     const onLoginPress = () => {
         firebase
             .auth()
@@ -41,7 +47,7 @@ export default function LoginScreen({navigation}) {
                         navigation.navigate('Main Menu')
                         // navigation.navigate('HomeScreen', {user}) 
                         // returns to old main menu
-                    })
+                    }, { merge: true }) 
                     .catch(error => {
                         alert(error)
                     });
@@ -89,6 +95,7 @@ export default function LoginScreen({navigation}) {
                 </TouchableOpacity>
                 <View style={styles.footerView}>
                     <Text style={styles.footerText}>Don't have an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Sign up</Text></Text>
+                    <Text onPress={onForgotPasswordPress} style={styles.footerLink}>Forgot Password?</Text>    
                 </View>
             </KeyboardAwareScrollView>
         </View>

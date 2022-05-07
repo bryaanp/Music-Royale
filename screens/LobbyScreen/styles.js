@@ -104,4 +104,25 @@ export default StyleSheet.create({
         paddingHorizontal: 30,
         marginBottom: 25,
       },
+      infoBoxWrapper2: {
+        paddingTop: 0,
+        borderRadius: 20,
+        borderRightColor: '#dddddd',
+        borderRightWidth: .7,
+        borderLeftColor: '#dddddd',
+        borderLeftWidth: .7,
+        borderTopColor: '#dddddd',
+        borderTopWidth: .7,
+        borderBottomColor: '#dddddd',
+        borderBottomWidth: .7,
+        // flexDirection: 'row',
+        height: 75,
+        width: 300,
+        justifyContent: 'center',
+        backgroundColor: '#EEEEEE',
+        marginLeft: 10,
+        // position: 'absolute'
+        alignSelf:'center',
+        alignItems:'center'
+    },
 })

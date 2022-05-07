@@ -28,4 +28,9 @@ export{default as ViewLobby } from './LobbyScreen/ViewLobby'
 
 export{default as Legacy } from './LobbyScreen/Legacy'
 
+export { default as SearchProfile} from './ProfileScreen/SearchProfile'
+
+export { default as ForgotPasswordScreen} from './LoginScreen/ForgotPasswordScreen'
+
+export { default as MP3PlayerScreen} from './LobbyScreen/MP3PlayerScreen'
 

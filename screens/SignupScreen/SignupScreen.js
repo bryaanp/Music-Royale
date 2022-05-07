@@ -46,13 +46,14 @@ export default function SignupScreen({navigation}) {
                     id: uid,
                     email,
                     fullName,
+                    username: username,
                 };
                 const usersRef = firebase.firestore().collection('users')
                 usersRef
                     .doc(uid)
                     .set(data)
                     .then(() => {
-                        navigation.navigate('HomeScreen', {user: data})
+                        navigation.navigate('Main Menu', {user: data})
                     })
                     .catch((error) => {
                         alert(error)
@@ -96,7 +97,7 @@ export default function SignupScreen({navigation}) {
                     secureTextEntry
                     placeholder='Username'
                     onChangeText={(text) => setUserName(text)}
-                    value={password}
+                    value={username}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />

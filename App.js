@@ -4,12 +4,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen, FriendScreen, NomineeScreen } from './screens'
+import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen, FriendScreen, NomineeScreen, SearchScreen, ViewDetailsScreen, GeneratePromptScreen, CreateLobby, FindLobby, ViewLobby, Legacy, SearchProfile, ForgotPasswordScreen} from './screens'
 import { firebase } from './firebase'
 import {decode, encode} from 'base-64'
 import { Button } from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {View} from 'react-native'
+import {View, LogBox} from 'react-native'
+
+
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
@@ -43,6 +45,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      {LogBox.ignoreAllLogs()}
       <Stack.Navigator initialRouteName={user ? 'Main Menu' : 'Login'}>
         { user ?  (
             <>
@@ -93,9 +96,42 @@ export default function App() {
         {props => <NomineeScreen {...props} extraData={user} />}
         </Stack.Screen>
 
+        <Stack.Screen name='Details' >
+        {props => <ViewDetailsScreen {...props} extraData={user} />}
+        </Stack.Screen>
+
+        <Stack.Screen name='Customize Prompt' >
+        {props => <GeneratePromptScreen {...props} extraData={user} />}
+        </Stack.Screen>
+
         <Stack.Screen name='ForgotPassword' >
         {props => <ForgotPasswordScreen {...props} extraData={user} />}
         </Stack.Screen>
+
+        <Stack.Screen name='Search' >
+        {props => <SearchScreen {...props} extraData={user} />}
+        </Stack.Screen>
+          
+        <Stack.Screen name='Find Lobby' >
+        {props => <FindLobby {...props} extraData={user} />}
+        </Stack.Screen>
+
+        <Stack.Screen name='Create Lobby' >
+        {props => <CreateLobby {...props} extraData={user} />}
+        </Stack.Screen>
+
+        <Stack.Screen name='View Lobby' >
+        {props => <ViewLobby {...props} extraData={user} />}
+        </Stack.Screen>
+
+        <Stack.Screen name='Lobby chat' >
+        {props => <Legacy {...props} extraData={user} />}
+        </Stack.Screen>
+          
+        <Stack.Screen name='SearchProfile'>
+        {props => <SearchProfile {...props} extraData={user}/>}
+        </Stack.Screen>
+
       </Stack.Navigator>
     </NavigationContainer>
   );
