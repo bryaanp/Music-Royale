@@ -7,17 +7,17 @@ import styles from '../NomineeScreen/styles';
 
 export default function GeneratePromptScreen(props) { 
 
+    //  determine if the user is creating/editing prompt. 
     //  null = new, anything else = edit
     var  _namePrompt = (props.route.params.name  == null) ? 'Untitled Prompt':props.route.params.name, flag = 0;
     console.log(_namePrompt)
     const [namePrompt, setNamePrompt] = useState(_namePrompt)
 
-    var uid = props.extraData.username, n_answer = [], n_question = []; 
+    var uid = props.extraData.username; 
 
     const promptRef  =  db.collection('prompts').where('username','==',uid).where('name','==',namePrompt)
     const [prompt, setPromt] = useState([]);
     const [promptName, setPromtName] = useState(namePrompt);
-
     const [quest, setQuestion] = useState('')
     const [index, setQuestionIndex] = useState()
     const [ans_A, setAns_A] = useState('')
@@ -28,52 +28,37 @@ export default function GeneratePromptScreen(props) {
 
     const [id, setid] = useState()
 
-
-
-
-
-    // grabs the desire prompt if edit 
-
+    // grabs data of the user data 
     useEffect(() => {
         promptRef.onSnapshot((snapshot) => {
             setPromt(snapshot.docs.map(doc => doc.data()))
         })
-
 
     }, [])
 
 
     const updateOnPress = (questions) => {
 
+        // set of conditions if the update is invalid 
         if(typeof index == "undefined"){
             console.log('ded')
-
             return(null)
         }
         if (questions.length <= index) {
-            // console.log('Invalid')
             return(null)
         }
         else if (index < 0) {
-            // console.log('Invalid')
             return(null)     
         }
 
+        // if object is unidentified it'll recorrect the object 
         if(typeof prompt == "undefined"){
             promptRef.onSnapshot((snapshot) => {
                 setPromt(snapshot.docs.map(doc => doc.data()))
             })
         }
 
-    
-    
-        
-
-        // console.log("---")
-        // console.log(questions[index])
-        // console.log("---")
-
-        // console.log(questions[0])
+        // checking if the questions does in fact contain the pervious question
         promptRef.where('questions', 'array-contains', questions[index]).get()
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
@@ -87,8 +72,7 @@ export default function GeneratePromptScreen(props) {
                 }   
         })})
 
-        console.log(id)
-        
+        // set of attributes that will be change     
         var copied = questions;
         var temp = questions[index];
         
@@ -111,15 +95,16 @@ export default function GeneratePromptScreen(props) {
             temp.Answer = ans_;
         }
 
+        // modify changes will be save on a new object  
         copied[index] = temp;
         const test = copied
 
-        // console.log(questions[index].A)
-
+        // new changes will be updated in the db
         db.collection('prompts').doc(id).update({
             questions: test,
         }, { merge: true });
 
+        // reset text data
         setQuestion('')
         setAns_A('')
         setAns_B('')
@@ -129,14 +114,15 @@ export default function GeneratePromptScreen(props) {
     }
 
 
-    const addOnPress = (questions) => {
 
+    const addOnPress = (questions) => { 
+
+        // grabs the current object document 
         promptRef.get()
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 // update the friend list to remove 'verify' username
                 if(doc.exists) {
-                    // console.log(doc.id)
                     setid(doc.id)
                 }
                 else{
@@ -144,7 +130,7 @@ export default function GeneratePromptScreen(props) {
                 }   
         })})
 
-
+        // creates a new set of questions
         var temp;
         db.collection('prompts').doc(id).update({
             questions: firebase.firestore.FieldValue.arrayUnion(
@@ -170,6 +156,7 @@ export default function GeneratePromptScreen(props) {
 
     }
 
+    
     const displayBuuttons = (name, username, questions) => {
 
         return(
