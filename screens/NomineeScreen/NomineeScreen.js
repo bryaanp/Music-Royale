@@ -8,12 +8,12 @@ import ToolBar from '../MainScreen/ToolBar';
 import { AntDesign } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/core';
 
-
+// npm install react-native-vector-icons
 
 
 export default function NomineeScreen(props) { 
     
-    const promptRef =  db.collection('prompts')
+    // hooks
     const [promptOffical, setPromptOffical] = useState([])
     const [promptRated, setPromptRated] = useState([])
     const [promptRecent, setPromptRecent] = useState([])
@@ -48,6 +48,7 @@ export default function NomineeScreen(props) {
     
         )
 
+        // Generate a new prompt 
         const newPromptOnPress = () => {
 
             db.collection('users').doc(props.extraData.id).update({
@@ -118,7 +119,7 @@ export default function NomineeScreen(props) {
 
                     <Text style={{alignSelf:'center', marginBottom: 5}}> Categories of Prompts </Text>
 
-                    <ScrollView>
+                    <ScrollView style={{width:300, alignSelf:'center', height:550}}>
                     <Text style={{alignSelf:'center', marginBottom: 5, marginTop: 5}}> Official </Text>
                     <PromptSceen prompt={promptOffical} index={0} id={username}/>
 
