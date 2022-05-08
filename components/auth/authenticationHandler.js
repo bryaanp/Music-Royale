@@ -1,5 +1,7 @@
 import {authorize, refresh} from 'react-native-app-auth';
 
+// authenticate to twitter, PUT ON HOLD
+
 class AuthenticationHandler {
   constructor() {
     this.twitterAuthConfig = {

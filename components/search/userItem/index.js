@@ -3,6 +3,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import styles from './styles'
 
+// searchuseritem function, takes user text input from search bar and displays username and allows navigation to other user profile
 export default function SearchUserItem({ item }) {
     const navigation = useNavigation()
     return (

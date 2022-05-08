@@ -11,7 +11,8 @@ import SearchSongItem from '../../components/search/songItem'
 
 
 
-
+// search music function, similar to search user function under searchscreen.js - refer back if needed
+// 
 const SearchMusic = () => {
     const storage = firebase.storage()
     const [textInput, setTextInput] = useState('')
@@ -36,53 +37,11 @@ const SearchMusic = () => {
         }
 
 
-  //   const playSnippet = () => {
-  //   const soundObject = new Audio.Sound();
-  //   try {
-  //      soundObject.loadAsync({ uri });
-  //      soundObject.playAsync();
-  //   } catch (error) {
-  //     console.log("error:", error);
-  //   }
-  // };
   
 
-const getSong = async () => {
-    const songRef = await firebase.storage().ref().child('songs/').listAll();
-    const urls = await Promise.all(songRef.items.map((ref) => ref.getDownloadURL()));
-    setSearchMusic(urls);
-}
 
 
-
-// return (
-//     <div className="App" style={{ marginTop: 250 }}>
-//       <center>
-//         <button onClick={listItem}>List Item</button>
-//         {
-//           searchMusic.map((val) => (
-//             <h2>{val}</h2>
-//           ))
-//         }
-//       </center>
-//     </div>
-//   );
-
-
-// return (
-//   <SafeAreaView style={styles.container}>
-//       <TextInput
-//           onChangeText={setTextInput}
-//           style={styles.textInput}
-//           placeholder={'Search Music'}
-//           />
-//         <button onClick={listItem}>List All Songs</button>
-//         <TouchableOpacity>
-//           <Text>{searchMusic.map((val) => <div> {val} </div>)}</Text>
-//         </TouchableOpacity >
-//       </SafeAreaView>
-// );
-
+// utilizies searchsongitem function, similar to searchuseritem function - refer back if needed
 return (
   <SafeAreaView style={styles.container}>
       <TextInput

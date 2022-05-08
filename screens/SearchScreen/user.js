@@ -1,5 +1,6 @@
 import { saveMediaToStorage } from './random'
 import { firebase } from '../../firebase'
+
 export const saveUserProfileImage = (image) => new Promise((resolve, reject) => {
     saveMediaToStorage(image, `profileImage/${firebase.auth().currentUser.uid}`).then((res) => {
         firebase.firestore()
@@ -24,7 +25,7 @@ export const saveUserField = (field, value) => new Promise((resolve, reject) => 
         .catch(() => reject())
 })
 
-
+ // query music function, checks firestore and compares user text input with firestore collection 'songs' data
 export const queryMusic = (songName) => new Promise((resolve, reject) => {
     if (songName === '') {
         resolve([])
@@ -45,6 +46,8 @@ export const queryMusic = (songName) => new Promise((resolve, reject) => {
         })
         .catch(() => reject())
 })
+
+ // query user function, checks firestore and compares user text input with firestore collection 'users' data
 
 export const queryUsers = (username) => new Promise((resolve, reject) => {
     if (username === '') {
@@ -88,54 +91,4 @@ export const getUserById = (id) => new Promise((resolve, reject) => {
 })
 
 
-/**
- * Checks if a user is following another by seeing if a follow doc exists.
- * 
- * @param {String} userId of the user we want to see if it's following another
- * @param {String} otherUserId the id of the user that we want to check if it's being followed by another.
- * @returns {Boolean} if true means the user is indeed following the other User
- */
-export const getIsFollowing = (userId, otherUserId) => new Promise((resolve, reject) => {
-    firebase.firestore()
-        .collection('users')
-        .doc(userId)
-        .collection('following')
-        .doc(otherUserId)
-        .get()
-        .then((doc) => {
-            resolve(doc.exists)
-        })
-        .catch(() => reject())
-})
 
-/**
- * Changes the follow state of two users depending on the current
- * follow state. 
- * 
- * @param {Object} props object containing the relevant info
- * @param {Boolean} isFollowing current follow state
- * @param {String} otherUserId the id of the user that we want to check if it's being followed by another.
- * @returns 
- */
-export const changeFollowState = ({ otherUserId, isFollowing }) => new Promise((resolve, reject) => {
-    if (isFollowing) {
-        firebase.firestore()
-            .collection('users')
-            .doc(firebase.auth().currentUser.uid)
-            .collection('following')
-            .doc(otherUserId)
-            .delete()
-            .then(() => resolve())
-            .catch(() => reject())
-    } else {
-        firebase.firestore()
-            .collection('users')
-            .doc(firebase.auth().currentUser.uid)
-            .collection('following')
-            .doc(otherUserId)
-            .set({})
-            .then(() => resolve())
-            .catch(() => reject())
-    }
-
-})

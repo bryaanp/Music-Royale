@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 // import Sound from 'react-native-sound'
 import styles from './styles'
 
+// search song item function, similar to search user item function - refer to ../userItem/index.js
 export default function SearchSongItem({ item }) {
     const navigation = useNavigation()
     return (

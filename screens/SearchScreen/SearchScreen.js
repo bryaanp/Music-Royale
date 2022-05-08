@@ -5,16 +5,19 @@ import SearchUserItem from '../../components/search/userItem'
 import { queryUsers } from './user'
 import styles from './styles'
 
+// search screen, displays search bar and takes user input through search bar
 const SearchScreen = () => {
     const [textInput, setTextInput] = useState('')
     const [searchUsers, setSearchUsers] = useState([])
 
+    // on use, take user text input and query users through function  seen in ./user
     useEffect(() => {
         console.log(textInput)
         queryUsers(textInput)
             .then(setSearchUsers)
     }, [textInput])
 
+    // return user text input, pass into SearchUserItem function to allow for further navigation and listing
     return (
         <SafeAreaView style={styles.container}>
             <TextInput

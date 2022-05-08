@@ -20,12 +20,10 @@ import {
     useTheme,
   } from 'react-native-paper';
   
+  // search profile function, take route from Searchuseritem function, under ../components/search/userItem/index.js
 export default function SearchProfile( { route }  ) {
     const  { initialUserId }  = route.params
-    // let providerUserId = null
-    // if (CurrentUserProfileItemInViewContext != null) {
-    //     providerUserId = useContext(CurrentUserProfileItemInViewContext)
-    // }
+
 
     // constant value that will change form time to time. 
     const {colors} = useTheme();
@@ -45,7 +43,7 @@ export default function SearchProfile( { route }  ) {
     const addOnPress = () => {
 
         // checking the user input to see if 'users' has contain such a username 
-        db.collection("users").where("username", "==", text)
+        db.collection("users").where("username", "==", initialUserId)
         .get()
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
@@ -54,8 +52,8 @@ export default function SearchProfile( { route }  ) {
                     console.log("exists");
                     db.collection('friends').doc(uid).set({
                         id: uid,
-                        friendUserName: text,
-                        friendlist: firebase.firestore.FieldValue.arrayUnion(text),
+                        friendUserName: initialUserId,
+                        friendlist: firebase.firestore.FieldValue.arrayUnion(initialUserId),
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     }, { merge: true });
 
@@ -63,7 +61,7 @@ export default function SearchProfile( { route }  ) {
 
                     // adding friend into the other list
                     db.collection('friends').doc(doc.id).set({
-                        friendUserName: text,
+                        friendUserName: initialUserId,
                         friendlist: firebase.firestore.FieldValue.arrayUnion(props.extraData.username),
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     }, { merge: true });
@@ -85,11 +83,11 @@ export default function SearchProfile( { route }  ) {
             // console.log("Error getting documents: ", error);
         });
 
-        console.log(Object.keys(friend))
+        // console.log(Object.keys(friend))
     }
 
 
-
+ // styling for search profile UI, similar to original profile UI
         
     return( 
         

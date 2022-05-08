@@ -13,13 +13,13 @@ export default function MainScreen(props) {
     const navigation = useNavigation()
 
     const onLobbyPress = () => {
-        navigation.navigate('SearchMusic')
+        navigation.navigate('Lobby')
     }
     const onProfilePress = () => {
-        navigation.navigate('Profile')
+        navigation.navigate('SearchMusic')
     }
     const onSearchPress = () => {
-        navigation.navigate('FriendList')
+        navigation.navigate('Search')
     }
 
 
