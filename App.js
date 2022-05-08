@@ -1,62 +1,27 @@
-import 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, SignupScreen, MainScreen, LobbyScreen, ProfileScreen } from './screens'
-import { firebase } from './firebase'
-import {decode, encode} from 'base-64'
-import ForgotPassword from './screens/ForgotPasswordScreen/ForgotPasswordScreen';
-import ForgotPasswordScreen from './screens/ForgotPasswordScreen/ForgotPasswordScreen';
-if (!global.btoa) {  global.btoa = encode }
-if (!global.atob) { global.atob = decode }
+//Libraries to be Installed:
+//npm install axios react-router-dom (allows Dynamic Routing in App and API Routing)
+//npm install @mui/material @emotion/react @emotion/styled (Handles UI of Quiz)
+//npm install firebase (allows firebase connectivity to app)
 
-const Stack = createStackNavigator();
-
-export default function App() {
-
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    const usersRef = firebase.firestore().collection('users');
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        usersRef
-          .doc(user.uid)
-          .get()
-          .then((document) => {
-            const userData = document.data()
-            setUser(userData)
-            setLoading(false)
-          })
-          .catch((error) => {
-            setLoading(false)
-          });
-      } else {
-        setLoading(false)
-      }
-    });
-  }, []);
-
+import React from 'react'
+import './App.css';
+import Quiz from './Quiz';
+import PlayQuiz from './PlayQuiz';
+import Results from './Result';
+import {
+  Route,
+  Routes
+} from "react-router-dom";
+function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName={user ? 'HomeScreen' : 'Login'}>
-        <Stack.Screen name="HomeScreen">
-          {props => <HomeScreen {...props} extraData={user}/>}
-        </Stack.Screen>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Registration" component={SignupScreen} />
-        {/* <Stack.Screen name='Main Menu' component={MainScreen}  />  */}
-        <Stack.Screen name='Lobby' component={LobbyScreen} />
-        <Stack.Screen name='ForgotPassword' component={ForgotPasswordScreen} />
-        <Stack.Screen name='Profile'>
-        {props => <ProfileScreen {...props} extraData={user}/>}
-        </Stack.Screen>
-        <Stack.Screen name='Main Menu' >
-          {props => <MainScreen {...props} extraData={user}/>}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <div className='app-main'>
+      <Routes>
+        <Route exact path='/' element={<Quiz />} />
+        <Route exact path='/play' element={<PlayQuiz />} />
+        <Route exact path='/results' element={<Results />} />
+      </Routes>
+    </div>
   );
-  
 }
+
+export default App;
