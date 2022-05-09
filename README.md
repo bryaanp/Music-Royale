@@ -3,7 +3,6 @@ A social react native mobile application that decides who will control the music
 
 # MUSIC ROYALE - Instructions for Use
 
-# Before Use:
 # Install the following libraries by running the following commands after cloning:
 npm install @react-navigation/bottom-tabs 
 npm install  @material-ui/core @material-ui/icons 
